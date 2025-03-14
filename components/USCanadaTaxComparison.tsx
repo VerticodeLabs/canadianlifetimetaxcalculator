@@ -467,7 +467,7 @@ export default function USCanadaTaxComparison({
                 const cdnFederalTax = yearData.federal;
 
                 const usFederalTax = calculateUSFederalTax(year, income);
-                const usFederalTaxCAD = usdToCad(usFederalTax); // Convert back to CAD
+                const usFederalTaxCAD = usFederalTax; // Convert back to CAD
 
                 const difference = cdnFederalTax - usFederalTaxCAD;
 
