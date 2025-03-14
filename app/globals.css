@@ -1,0 +1,528 @@
+/* Global CSS inspired by Create React App website - preserving grid layout */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+/* Canada.ca Design System Stylesheet */
+
+/* Import the required fonts */
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Noto+Sans:wght@400;700&display=swap");
+
+/* CSS Reset and Base Styles */
+:root {
+  /* Federal Identity Program (FIP) colors */
+  --fip-red: rgb(235, 45, 55); /* Flag red */
+  --black: rgb(0, 0, 0);
+  --white: rgb(255, 255, 255);
+  --pewter-grey: rgb(150, 150, 150);
+
+  /* Canada.ca core colors */
+  --primary-link: #284162; /* Default link color */
+  --primary-hover: #0535d2; /* Selected/hover link color */
+  --primary-visited: #7834bc; /* Visited link color */
+  --accent: #26374a; /* Main accent color */
+  --error: #d3080c; /* Error/required indicator */
+  --text: #333; /* Main text color */
+  --background: #fff; /* Primary background */
+  --gray-light: #f1f1f1; /* Light gray for borders/backgrounds */
+  --gray-dark: #e1e1e1; /* Darker gray for borders */
+
+  /* Heading red line color */
+  --red-bar: #af3c43;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 20px; /* Base font size for Canada.ca */
+}
+
+body {
+  font-family: "Noto Sans", sans-serif;
+  color: var(--text);
+  background-color: var(--background);
+  line-height: 1.5;
+}
+
+/* Typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Lato", sans-serif;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h1 {
+  font-size: 1.9rem; /* 38px */
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+/* Red bar below h1 */
+h1::after {
+  content: "";
+  display: block;
+  width: 3.55em;
+  height: 0.18em;
+  background-color: var(--red-bar);
+  position: absolute;
+  left: 0;
+  margin-top: 0.1em;
+}
+
+h2 {
+  font-size: 1.8rem; /* 36px */
+}
+
+h3 {
+  font-size: 1.2rem; /* 24px */
+}
+
+h4 {
+  font-size: 1.1rem; /* 22px */
+}
+
+h5 {
+  font-size: 1rem; /* 20px */
+}
+
+h6 {
+  font-size: 0.95rem; /* 19px */
+  font-weight: 400;
+}
+
+p {
+  margin-bottom: 1rem;
+  max-width: 65ch; /* Line length restriction */
+}
+
+/* Links */
+a {
+  color: var(--primary-link);
+  text-decoration: underline;
+  text-decoration-skip-ink: auto; /* Skip descenders */
+}
+
+a:hover,
+a:focus {
+  color: var(--primary-hover);
+}
+
+a:visited {
+  color: var(--primary-visited);
+}
+
+/* Layout containers */
+.container {
+  width: 100%;
+  /* max-width: 1200px; */
+  margin: 50px auto;
+  padding: 0 1rem;
+}
+
+/* Grid system */
+.grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+  .grid-md-2 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-md-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width: 992px) {
+  .grid-lg-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid-lg-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Header styles */
+.header {
+  background-color: var(--white);
+  border-bottom: 1px solid var(--gray-dark);
+  padding: 1rem 0;
+}
+
+.header-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.gcweb-menu {
+  background-color: var(--accent);
+  color: var(--white);
+  padding: 0.5rem 0;
+}
+
+/* Footer styles */
+footer {
+  background-color: var(--accent);
+  color: var(--white);
+  padding: 2rem 0;
+}
+
+/* Services and information section */
+.services-info {
+  margin: 2rem 0;
+}
+
+.services-info h2 {
+  border-bottom: 1px solid var(--gray-dark);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.service-box {
+  margin-bottom: 1.5rem;
+}
+
+.service-box h3 {
+  font-size: 1em;
+  margin-bottom: 0.5rem;
+}
+
+.service-box p {
+  font-size: 0.85rem;
+  color: var(--text);
+}
+
+/* Features section */
+.features {
+  margin: 2rem 0;
+}
+
+.feature-box {
+  border: 1px solid var(--gray-dark);
+  border-radius: 4px;
+  padding: 1rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-box img {
+  width: 100%;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+.feature-box h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.feature-box p {
+  font-size: 0.85rem;
+  flex-grow: 1;
+}
+
+/* Buttons */
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  user-select: none;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+.btn-primary {
+  color: var(--white);
+  background-color: var(--accent);
+  border: 1px solid var(--accent);
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background-color: #1a2533;
+  color: var(--white);
+}
+
+/* Forms */
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+  background-color: var(--white);
+  border: 1px solid var(--gray-dark);
+  border-radius: 4px;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--primary-link);
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(40, 65, 98, 0.25);
+}
+
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+}
+
+/* Alerts */
+.alert {
+  position: relative;
+  padding: 0.75rem 1.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.alert-info {
+  color: var(--primary-link);
+  background-color: #eef2f7;
+  border-color: #d8e2f0;
+}
+
+.alert-success {
+  color: #155724;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+}
+
+.alert-warning {
+  color: #856404;
+  background-color: #fff3cd;
+  border-color: #ffeeba;
+}
+
+.alert-error {
+  color: var(--error);
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid var(--gray-dark);
+}
+
+thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid var(--gray-dark);
+  background-color: var(--gray-light);
+}
+
+/* Media queries for smaller screens */
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 1.7rem; /* 34px at 20px base */
+  }
+
+  h2 {
+    font-size: 1.6rem; /* 32px at 20px base */
+  }
+
+  .container {
+    padding: 0 0.5rem;
+  }
+}
+
+/* Button styles based on Canada.ca */
+
+/* Base button style */
+.btn,
+button[type="submit"],
+button[type="button"] {
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 400;
+  color: #fff;
+  background-color: #26374a; /* Dark blue for primary buttons */
+  border: 1px solid #26374a;
+  border-radius: 4px;
+  padding: 10px 14px;
+  /* margin: 2px 0; */
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* Hover state for buttons */
+.btn:hover,
+button[type="submit"]:hover,
+button[type="button"]:hover {
+  background-color: #1a2533; /* Darker blue on hover */
+  border-color: #1a2533;
+}
+
+/* Focus state for accessibility */
+.btn:focus,
+button[type="submit"]:focus,
+button[type="button"]:focus {
+  outline: 4px solid #284162;
+  outline-offset: 2px;
+}
+
+/* Secondary buttons (often used for "Cancel" or secondary actions) */
+.btn-secondary {
+  background-color: #eaebed !important; /* Light gray background */
+  border-color: #dcdee1 !important; /* Light gray border */
+  color: #335075 !important; /* Blue text */
+  border-color: #284162 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #cfd1d5 !important;
+  border-color: #bbbfc5 !important;
+  color: #284162 !important;
+}
+
+/* Danger/alert buttons */
+.btn-danger {
+  background-color: #d3080c !important; /* Canada.ca red */
+  border-color: #d3080c !important;
+}
+
+.btn-danger:hover {
+  background-color: #b5070a;
+  border-color: #b5070a;
+}
+
+/* Link styled as button */
+.btn-link {
+  background: none;
+  border: none;
+  color: #284162; /* Standard Canada.ca link color */
+  text-decoration: underline;
+  padding: 0;
+}
+
+.btn-link:hover {
+  color: #0535d2; /* Link hover color from Canada.ca */
+  background: none;
+  text-decoration: underline;
+}
+
+/* Full-width button for mobile or certain contexts */
+.btn-block {
+  display: block;
+  width: 100%;
+}
+
+/* Disabled state */
+.btn:disabled,
+button[type="submit"]:disabled,
+button[type="button"]:disabled {
+  background-color: #e1e4e7;
+  border-color: #e1e4e7;
+  color: #6f6f6f;
+  cursor: not-allowed;
+}
+
+.support-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 20px;
+  margin-bottom: 7px;
+  flex-wrap: wrap;
+}
+
+.support-buttons svg {
+  margin-right: 7px;
+}
+
+/* Button base style */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 10px 16px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: all 0.15s ease-in-out;
+}
+
+/* Patreon button */
+.btn-patreon {
+  background-color: #ff424d;
+  color: white;
+  border: 1px solid #ff424d;
+}
+
+.btn-patreon:hover {
+  background-color: #e83f49;
+  color: white;
+}
+
+/* GitHub button */
+.btn-github {
+  background-color: #24292e;
+  color: white;
+  border: 1px solid #24292e;
+}
+
+.btn-github:hover {
+  background-color: #3a3a3a;
+  color: white;
+}
+
+.disclaimer-box {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #f5f5f5;
+  border-left: 4px solid #26374a;
+  font-size: 14px;
+  color: #333;
+}
