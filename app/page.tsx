@@ -3,11 +3,10 @@
 
 import { useState } from "react";
 import IncomeForm from "@/components/IncomeForm";
-import ProvinceSelector from "@/components/ProvinceSelector";
 import { CalculationResult } from "@/types";
 
 export default function CalculatorPage() {
-  const [province, setProvince] = useState("ontario");
+  const [province] = useState("ontario");
 
   const calculateTaxes = async (
     incomeData: Record<number, number>
@@ -36,14 +35,15 @@ export default function CalculatorPage() {
 
       <div className="bg-[#f5f5f5] border-l-4 border-[#26374A] p-4 mb-4 mt-6 shadow-sm">
         <span className="text-lg bt-">
-          As Canada's election heats up, taxes—and especially the carbon
+          As Canada&lsquo;s election heats up, taxes—and especially the carbon
           tax—have become a major source of frustration. Canadians are
           rightfully asking:{" "}
           <strong>Are we really getting what we pay for?</strong> Our tax
-          calculator shows you exactly how much you've paid over your lifetime.
-          Compare this number to the services you actually receive and decide
-          for yourself: Is your money being spent wisely, or is it being wasted?
-          It's your money—know the truth and hold your government accountable.
+          calculator shows you exactly how much you&lsquo;ve paid over your
+          lifetime. Compare this number to the services you actually receive and
+          decide for yourself: Is your money being spent wisely, or is it being
+          wasted? It&lsquo;s your money—know the truth and hold your government
+          accountable.
         </span>
 
         <div className="support-buttons">
@@ -56,10 +56,7 @@ export default function CalculatorPage() {
                 height="16"
                 fill="currentColor"
               >
-                <path
-                  fill-rule="evenodd"
-                  d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5zM8 14.25l-.345.666-.002-.001-.006-.003-.018-.01a7.643 7.643 0 01-.31-.17 22.075 22.075 0 01-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.08 22.08 0 01-3.744 2.584l-.018.01-.006.003h-.002L8 14.25z"
-                ></path>
+                <path d="M4.25 2.5c-1.336 0-2.75 1.164-2.75 3 0 2.15 1.58 4.144 3.365 5.682A20.565 20.565 0 008 13.393a20.561 20.561 0 003.135-2.211C12.92 9.644 14.5 7.65 14.5 5.5c0-1.836-1.414-3-2.75-3-1.373 0-2.609.986-3.029 2.456a.75.75 0 01-1.442 0C6.859 3.486 5.623 2.5 4.25 2.5zM8 14.25l-.345.666-.002-.001-.006-.003-.018-.01a7.643 7.643 0 01-.31-.17 22.075 22.075 0 01-3.434-2.414C2.045 10.731 0 8.35 0 5.5 0 2.836 2.086 1 4.25 1 5.797 1 7.153 1.802 8 3.02 8.847 1.802 10.203 1 11.75 1 13.914 1 16 2.836 16 5.5c0 2.85-2.045 5.231-3.885 6.818a22.08 22.08 0 01-3.744 2.584l-.018.01-.006.003h-.002L8 14.25z"></path>
               </svg>
               Sponsor
             </button>

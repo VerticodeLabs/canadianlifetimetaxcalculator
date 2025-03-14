@@ -507,7 +507,8 @@ button[type="button"]:disabled {
 }
 
 /* GitHub button */
-.btn-github {
+.btn-github,
+.btn-github:visited {
   background-color: #24292e;
   color: white;
   border: 1px solid #24292e;

@@ -36,7 +36,15 @@ export function calculateLifetimeTax(
     total: 0,
     byYear: {} as Record<
       number,
-      { federal: number; provincial: number; total: number }
+      {
+        federal: number;
+        provincial: number;
+        total: number;
+        federalMarginalRate: number;
+        provincialMarginalRate: number;
+        combinedMarginalRate: number;
+        effectiveRate: number;
+      }
     >,
   };
 

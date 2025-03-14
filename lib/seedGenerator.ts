@@ -17,7 +17,7 @@ export function generateSeed(): string {
     categories: {
       // Restrict to more common and memorable categories
       adjective: ["color", "appearance", "personality", "size", "time"],
-      noun: ["animals", "food", "nature", "objects", "places"],
+      noun: ["animals", "food", "place", "thing", "media"],
     },
   });
 }

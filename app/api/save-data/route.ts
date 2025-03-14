@@ -7,7 +7,9 @@ export async function POST(request: NextRequest) {
   const { env } = await getCloudflareContext({ async: true });
 
   try {
-    const { incomeData } = await request.json();
+    const { incomeData } = await request.json<{
+      incomeData: { income: Record<number, number>; province: string };
+    }>();
 
     // Generate a unique seed
     const seed = generateSeed();

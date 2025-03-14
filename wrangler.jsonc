@@ -4,7 +4,7 @@
  */
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "canada-tax-calculator",
+  "name": "canada-lifetime-tax-calculator",
   "main": ".open-next/worker.js",
   "compatibility_date": "2024-09-26",
   "compatibility_flags": ["nodejs_compat"],
@@ -16,6 +16,18 @@
   "observability": {
     "enabled": true
   },
+
+  "routes": [
+    {
+      "pattern": "canadianlifetimetaxcalculator.com",
+      "custom_domain": true
+    },
+    {
+      "pattern": "www.canadianlifetimetaxcalculator.com",
+      "custom_domain": true
+    }
+  ],
+
   /**
    * Smart Placement
    * Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

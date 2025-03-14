@@ -1,6 +1,5 @@
 // app/api/calculate/route.ts
 import { NextRequest } from "next/server";
-import { getCloudflareContext } from "@opennextjs/cloudflare";
 import { CalculationRequest } from "@/types";
 import { calculateLifetimeTax } from "@/lib/taxCalculator";
 
@@ -21,8 +20,6 @@ import saskatchewanTaxRates from "@/data/tax-rates/provincial/saskatchewan";
 import yukonTaxRates from "@/data/tax-rates/provincial/yukon";
 
 export async function POST(request: NextRequest) {
-  const { env } = await getCloudflareContext({ async: true });
-
   try {
     const body: CalculationRequest = await request.json();
     const { income, province = "ontario" } = body;

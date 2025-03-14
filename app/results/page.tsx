@@ -1,7 +1,7 @@
 // app/results/page.tsx
 "use client";
 
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { CalculationResult } from "@/types";
 
@@ -21,7 +21,6 @@ import USCanadaTaxComparison from "@/components/USCanadaTaxComparison";
 
 export default function ResultsPage() {
   const router = useRouter();
-  const searchParams = useSearchParams();
   const [results, setResults] = useState<CalculationResult | null>(null);
   const [incomeData, setIncomeData] = useState<Record<number, number>>({});
   const [loading, setLoading] = useState(true);
@@ -103,7 +102,7 @@ export default function ResultsPage() {
           </h2>
 
           <div className="space-x-2">
-            <FacebookShareButton url={shareUrl} quote={shareTitle}>
+            <FacebookShareButton url={shareUrl} hashtag={"CanadaTaxCalculator"}>
               <FontAwesomeIcon icon={faFacebook} />
             </FacebookShareButton>
 
@@ -111,7 +110,7 @@ export default function ResultsPage() {
               <FontAwesomeIcon icon={faXTwitter} />
             </TwitterShareButton>
 
-            <LinkedinShareButton url={shareUrl} title={shareTitle}>
+            <LinkedinShareButton url={shareUrl} summary={shareTitle}>
               <FontAwesomeIcon icon={faLinkedin} />
             </LinkedinShareButton>
           </div>
@@ -185,7 +184,7 @@ function exportTableToCSV(filename: string) {
   const table = document.querySelector(".tax-results-table");
   if (!table) return;
 
-  let csv = [];
+  const csv = [];
   const rows = table.querySelectorAll("tr");
 
   for (let i = 0; i < rows.length; i++) {
@@ -193,7 +192,7 @@ function exportTableToCSV(filename: string) {
       cols = rows[i].querySelectorAll("td, th");
 
     for (let j = 0; j < cols.length; j++) {
-      let data = cols[j].textContent?.replace(/"/g, '""') || "";
+      const data = cols[j].textContent?.replace(/"/g, '""') || "";
       row.push('"' + data + '"');
     }
 

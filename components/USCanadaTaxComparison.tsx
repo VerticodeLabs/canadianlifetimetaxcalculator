@@ -17,7 +17,7 @@ export default function USCanadaTaxComparison({
     "healthcare" | "federaltax" | "other"
   >("healthcare");
   const [exchangeRate, setExchangeRate] = useState(0.74); // Default fallback rate
-  const [rateLastUpdated, setRateLastUpdated] = useState(null);
+  const [rateLastUpdated, setRateLastUpdated] = useState(new Date());
   const [isLoadingRate, setIsLoadingRate] = useState(true);
 
   // Format currency
@@ -31,7 +31,7 @@ export default function USCanadaTaxComparison({
   };
 
   const employerSponsoredCost = 1368; // Annual cost for employee portion
-  const selfEmployedCost = 7452; // Annual cost for self-employed
+  // const selfEmployedCost = 7452; // Annual cost for self-employed
 
   // Fetch current exchange rate
   useEffect(() => {
@@ -42,7 +42,9 @@ export default function USCanadaTaxComparison({
         const response = await fetch(
           "https://api.exchangerate-api.com/v4/latest/CAD"
         );
-        const data = await response.json();
+        const data = await response.json<{
+          rates: { [currency: string]: number };
+        }>();
 
         if (data && data.rates && data.rates.USD) {
           setExchangeRate(data.rates.USD);
@@ -60,19 +62,19 @@ export default function USCanadaTaxComparison({
   }, []);
 
   // Convert CAD to USD using current exchange rate
-  const cadToUsd = (cadAmount) => {
+  const cadToUsd = (cadAmount: number) => {
     return cadAmount * exchangeRate;
   };
 
   // Convert USD to CAD using current exchange rate
-  const usdToCad = (usdAmount) => {
+  const usdToCad = (usdAmount: number) => {
     return usdAmount / exchangeRate;
   };
 
   // Calculate US federal tax for a given income (in USD)
-  const calculateUSFederalTax = (year, income) => {
+  const calculateUSFederalTax = (year: number, income: number) => {
     // Convert income to USD
-    const usdIncome = income * 0.74;
+    const usdIncome = cadToUsd(income);
 
     // Find the closest previous year in our data
     const availableYears = Object.keys(usTaxData).map(Number);
@@ -127,10 +129,7 @@ export default function USCanadaTaxComparison({
       return yearData.total * 0.257;
     } else {
       // Return both options
-      return {
-        employer: employerSponsoredCost,
-        selfEmployed: selfEmployedCost,
-      };
+      return employerSponsoredCost;
     }
   };
 
@@ -144,7 +143,7 @@ export default function USCanadaTaxComparison({
   }, 0);
 
   const lifetimeUsHealthcareEmployer = sortedYears.length * 1368;
-  const lifetimeUsHealthcareSelf = sortedYears.length * 7452;
+  // const lifetimeUsHealthcareSelf = sortedYears.length * 7452;
 
   const lifetimeCdnFederalTax = sortedYears.reduce((total, year) => {
     const yearData = results.byYear[year] || { federal: 0 };
@@ -381,7 +380,7 @@ export default function USCanadaTaxComparison({
                   income,
                   false
                 );
-                const difference = cdnHealthcare - usHealthcare.employer;
+                const difference = cdnHealthcare - usHealthcare;
 
                 return (
                   <tr key={year} className="border-b">
@@ -391,7 +390,7 @@ export default function USCanadaTaxComparison({
                       {formatCurrency(cdnHealthcare)}
                     </td>
                     <td className="p-3 text-right">
-                      {formatCurrency(usHealthcare.employer)}
+                      {formatCurrency(usHealthcare)}
                     </td>
                     <td
                       className={`p-3 text-right ${
@@ -630,7 +629,7 @@ export default function USCanadaTaxComparison({
   );
 }
 
-const usTaxData = {
+const usTaxData: TaxData = {
   1913: {
     brackets: [
       { min: 0, max: 20000, rate: 0.01 },

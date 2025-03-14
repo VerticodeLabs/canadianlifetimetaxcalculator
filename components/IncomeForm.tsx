@@ -39,7 +39,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
         const parsedIncome = JSON.parse(storedIncome);
         setIncome(parsedIncome);
       } catch (e) {
-        console.error("Failed to parse stored income data");
+        console.error("Failed to parse stored income data", e);
       }
     }
 
@@ -139,7 +139,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
         body: JSON.stringify({ incomeData: income }),
       });
 
-      const data = await response.json();
+      const data = await response.json<{ seed: string; success: boolean }>();
 
       if (data.success) {
         setSeed(data.seed);
@@ -165,7 +165,10 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
       const response = await fetch(
         `/api/load-data?seed=${encodeURIComponent(seedInput)}`
       );
-      const data = await response.json();
+      const data = await response.json<{
+        success: boolean;
+        incomeData: Record<number, number>;
+      }>();
 
       if (data.success) {
         setIncome(data.incomeData);
@@ -194,8 +197,8 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
             {seed}
           </div>
           <p className="text-xs text-green-600">
-            Copy and save this phrase somewhere safe. You'll need it to recover
-            your data.
+            Copy and save this phrase somewhere safe. You&apos;ll need it to
+            recover your data.
           </p>
         </div>
       )}

@@ -2,7 +2,7 @@
 
 A Next.js application that helps Canadians understand their true tax burden over their lifetime compared to what they would pay in the United States.
 
-Canadian Tax Calculator
+[Canadian Tax Calculator](https://canadiantaxcalculator.com)
 
 ## Overview
 

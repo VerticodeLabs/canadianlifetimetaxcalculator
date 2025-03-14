@@ -1,5 +1,5 @@
 {
-  "name": "my-next-app",
+  "name": "canadian-lifetime-tax-calculator",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,10 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "build:worker": "npx @opennextjs/cloudflare build",
+    "build:worker": "npx @opennextjs/cloudflare",
     "dev:worker": "npx wrangler pages dev .open-next/assets --compatibility-flag=nodejs_compat",
     "preview:worker": "npm run build:worker && npm run dev:worker",
-    "deploy:worker": "npm run build:worker && npx wrangler pages deploy .open-next/assets"
+    "deploy:worker": "npm run build:worker && npx wrangler deploy"
   },
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
