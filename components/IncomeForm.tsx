@@ -3,6 +3,8 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { Button, Modal } from "flowbite-react";
+
 import ProvinceSelector from "./ProvinceSelector";
 
 // LocalStorage keys
@@ -184,7 +186,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
   };
 
   const sortedYears = Object.keys(income).sort((a, b) => Number(b) - Number(a));
-
+  const [openModal, setOpenModal] = useState(false);
   return (
     <div className="bg-white ">
       {showSeedMessage && seed && (
@@ -258,11 +260,25 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
             </div>
 
             <div>
-              <label
-                className="block text-sm font-medium mb-1"
-                htmlFor="income"
-              >
-                Income ($)
+              <label htmlFor="income" className="flex items-center">
+                Income
+                <span
+                  className="ml-2 text-blue-600 cursor-pointer"
+                  data-tip
+                  data-for="t4-tooltip"
+                  onClick={() => setOpenModal(true)}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                  </svg>
+                </span>
               </label>
               <input
                 id="income"
@@ -349,6 +365,30 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
           </small>
         </form>
       </div>
+      <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
+        <Modal.Header>How To Recover Old Or Lost T4&apos;s</Modal.Header>
+        <Modal.Body>
+          <p>
+            If you’ve lost one or more T4 slips and need a copy, the absolute
+            best place to retrieve them is through the{" "}
+            <a href="https://www.canada.ca/en/revenue-agency/services/e-services/e-services-individuals/account-individuals/about-account.html">
+              “My Account”
+            </a>{" "}
+            section on the CRA’s website. Directly above, in the “How to get a
+            T4 online” section, you’ll find some detailed instructions on how to
+            access the site.{" "}
+          </p>
+          <p>
+            The CRA should have T4 slips dating back several years. If the
+            information you’re seeking is missing, reach out to the human
+            resources department of the current or former employer who issued
+            the slip. They should be able to set you up.
+          </p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setOpenModal(false)}>Close</Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
