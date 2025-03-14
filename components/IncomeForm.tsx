@@ -10,7 +10,7 @@ const STORAGE_INCOME_KEY = "tax-calculator-income";
 const STORAGE_SEED_KEY = "tax-calculator-seed";
 
 interface IncomeFormProps {
-  onSubmit: (incomeData: Record<number, number>) => void;
+  onSubmit: (incomeData: Record<number, number>, province: string) => void;
 }
 
 export default function IncomeForm({ onSubmit }: IncomeFormProps) {
@@ -104,7 +104,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
 
     try {
       // Call the onSubmit function (API call)
-      const results = await onSubmit(income);
+      const results = await onSubmit(income, province);
 
       // Store results and income data in localStorage for the results page
       localStorage.setItem("tax-results", JSON.stringify(results));
@@ -241,6 +241,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
               <label className="block text-sm font-medium mb-1" htmlFor="year">
                 Year
               </label>
+              <input type="hidden" value={province} name="province" />
               <input
                 id="year"
                 type="number"

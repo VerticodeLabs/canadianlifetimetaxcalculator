@@ -83,7 +83,12 @@ export async function POST(request: NextRequest) {
         provincialRates = ontarioTaxRates;
     }
 
-    const result = calculateLifetimeTax(income, federalRates, provincialRates);
+    const result = calculateLifetimeTax(
+      income,
+      federalRates,
+      provincialRates,
+      province.toLowerCase()
+    );
 
     return Response.json(result);
   } catch (error) {

@@ -14,6 +14,7 @@ export function calculateTax(
 
     if (income > min) {
       const taxableInThisBracket = Math.min(income, max) - min;
+      console.log({ taxableInThisBracket, rate });
       tax += taxableInThisBracket * rate;
     }
 
@@ -25,12 +26,43 @@ export function calculateTax(
   return tax;
 }
 
-// Remove the findClosestPreviousYear function if it's not needed elsewhere
+// Function to calculate Ontario surtax based on provincial tax payable
+function calculateOntarioSurtax(baseTax: number, year: number) {
+  // Get thresholds for the specific year (2025 values from search result)
+  let lowerThreshold, upperThreshold;
+
+  if (year === 2025) {
+    lowerThreshold = 5710;
+    upperThreshold = 7307;
+  } else if (year === 2024) {
+    lowerThreshold = 5554;
+    upperThreshold = 7108;
+  } else {
+    // Default to most recent known values
+    lowerThreshold = 5554;
+    upperThreshold = 7108;
+  }
+
+  let surtax = 0;
+
+  // Apply 20% surtax on provincial tax exceeding lower threshold
+  if (baseTax > lowerThreshold) {
+    surtax += (baseTax - lowerThreshold) * 0.2;
+  }
+
+  // Apply additional 36% surtax on provincial tax exceeding upper threshold
+  if (baseTax > upperThreshold) {
+    surtax += (baseTax - upperThreshold) * 0.36;
+  }
+
+  return surtax;
+}
 
 export function calculateLifetimeTax(
   incomeByYear: Record<number, number>,
   federalRates: TaxData,
-  provincialRates: TaxData
+  provincialRates: TaxData,
+  province: string
 ): CalculationResult {
   const result = {
     total: 0,
@@ -55,24 +87,72 @@ export function calculateLifetimeTax(
     const federalYear = findClosestPreviousYear(year, federalRates);
     const provincialYear = findClosestPreviousYear(year, provincialRates);
 
-    // Skip only if we can't find any applicable tax rates
-    if (!federalYear || !provincialYear) {
-      continue;
-    }
-
-    const federalTax = calculateTax(income, federalRates[federalYear]);
-    const provincialTax = calculateTax(income, provincialRates[provincialYear]);
-    const totalTax = federalTax + provincialTax;
-
     // Calculate marginal rates - the rate that would apply to the next dollar earned
     const federalMarginalRate = findMarginalRate(
       income,
       federalRates[federalYear].brackets
     );
-    const provincialMarginalRate = findMarginalRate(
+    let provincialMarginalRate = findMarginalRate(
       income,
       provincialRates[provincialYear].brackets
     );
+
+    const federalTax = calculateTax(income, federalRates[federalYear]);
+    let provincialTax = calculateTax(income, provincialRates[provincialYear]);
+
+    let surtax = 0;
+    if (province === "ontario") {
+      console.log("Calculating Ontario surtax", { provincialTax });
+      surtax = calculateOntarioSurtax(provincialTax, year);
+      provincialTax += surtax;
+      console.log({ surtax, provincialTax });
+
+      // Calculate provincial tax at income + 1 dollar
+      const provincialTaxPlusOne = calculateTax(
+        income + 1,
+        provincialRates[provincialYear]
+      );
+      const surtaxPlusOne = calculateOntarioSurtax(provincialTaxPlusOne, year);
+
+      // The effective provincial marginal rate including surtax effect
+      console.log({ provincialMarginalRate });
+
+      // Calculate tax at current income
+      const provincialTaxAtIncome = calculateTax(
+        income,
+        provincialRates[provincialYear]
+      );
+      const surtaxAtIncome = calculateOntarioSurtax(
+        provincialTaxAtIncome,
+        year
+      );
+      const totalProvincialTaxAtIncome = provincialTaxAtIncome + surtaxAtIncome;
+
+      // Calculate tax at income + 1
+      const provincialTaxAtIncomePlusOne = calculateTax(
+        income + 1,
+        provincialRates[provincialYear]
+      );
+      const surtaxAtIncomePlusOne = calculateOntarioSurtax(
+        provincialTaxAtIncomePlusOne,
+        year
+      );
+      const totalProvincialTaxAtIncomePlusOne =
+        provincialTaxAtIncomePlusOne + surtaxAtIncomePlusOne;
+
+      // True marginal rate is the tax difference on one additional dollar
+      provincialMarginalRate =
+        totalProvincialTaxAtIncomePlusOne - totalProvincialTaxAtIncome;
+
+      // True marginal rate is the tax difference on one additional dollar
+      provincialMarginalRate =
+        totalProvincialTaxAtIncomePlusOne - totalProvincialTaxAtIncome;
+
+      console.log({ provincialMarginalRate });
+    }
+
+    const totalTax = federalTax + provincialTax;
+
     const combinedMarginalRate = federalMarginalRate + provincialMarginalRate;
 
     // Calculate effective tax rate (total tax / income)
@@ -95,10 +175,7 @@ export function calculateLifetimeTax(
 }
 
 // Keep this helper function as it's still useful for finding the right tax bracket
-function findClosestPreviousYear(
-  year: number,
-  taxRates: TaxData
-): number | null {
+function findClosestPreviousYear(year: number, taxRates: TaxData): number {
   const availableYears = Object.keys(taxRates)
     .map(Number)
     .sort((a, b) => b - a);
@@ -109,7 +186,7 @@ function findClosestPreviousYear(
     }
   }
 
-  return null;
+  return availableYears[0];
 }
 // Helper function to find the marginal tax rate (rate on next dollar earned)
 function findMarginalRate(income: number, brackets: TaxBracket[]): number {

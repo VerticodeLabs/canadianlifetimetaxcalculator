@@ -6,10 +6,9 @@ import IncomeForm from "@/components/IncomeForm";
 import { CalculationResult } from "@/types";
 
 export default function CalculatorPage() {
-  const [province] = useState("ontario");
-
   const calculateTaxes = async (
-    incomeData: Record<number, number>
+    incomeData: Record<number, number>,
+    province: string
   ): Promise<CalculationResult> => {
     const response = await fetch("/api/calculate", {
       method: "POST",
