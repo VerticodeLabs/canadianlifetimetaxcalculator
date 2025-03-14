@@ -105,17 +105,6 @@ export function calculateLifetimeTax(
       console.log("Calculating Ontario surtax", { provincialTax });
       surtax = calculateOntarioSurtax(provincialTax, year);
       provincialTax += surtax;
-      console.log({ surtax, provincialTax });
-
-      // Calculate provincial tax at income + 1 dollar
-      const provincialTaxPlusOne = calculateTax(
-        income + 1,
-        provincialRates[provincialYear]
-      );
-      const surtaxPlusOne = calculateOntarioSurtax(provincialTaxPlusOne, year);
-
-      // The effective provincial marginal rate including surtax effect
-      console.log({ provincialMarginalRate });
 
       // Calculate tax at current income
       const provincialTaxAtIncome = calculateTax(

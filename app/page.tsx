@@ -1,7 +1,6 @@
 // app/calculator/page.tsx
 "use client";
 
-import { useState } from "react";
 import IncomeForm from "@/components/IncomeForm";
 import { CalculationResult } from "@/types";
 
