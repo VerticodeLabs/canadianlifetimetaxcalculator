@@ -1,38 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Canadian Tax Calculator
+
+A Next.js application that helps Canadians understand their true tax burden over their lifetime compared to what they would pay in the United States.
+
+Canadian Tax Calculator
+
+## Overview
+
+As Canada's election heats up, taxes—and especially the carbon tax—have become a major source of frustration. Canadians are rightfully asking: **Are we really getting what we pay for?** This tax calculator shows you exactly how much you've paid over your lifetime. Compare this number to the services you actually receive and decide for yourself: Is your money being spent wisely, or is it being wasted?
+
+## Features
+
+- **Lifetime Tax Calculation**: Calculate your federal and provincial taxes paid over your entire career
+- **US/Canada Comparison**: See how your tax burden compares to what you would pay in the United States
+- **Healthcare Cost Analysis**: Understand how much of your tax dollars go toward healthcare compared to US private insurance costs
+- **Detailed Breakdown**: View your tax data by year with federal and provincial components
+- **Marginal Tax Rate**: See your marginal tax rate for each income year
+- **Data Export**: Download your tax data as CSV for further analysis
+
+## Built With
+
+- [Next.js](https://nextjs.org/) - React framework for server-rendered applications
+- [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework
+- [TypeScript](https://www.typescriptlang.org/) - Typed JavaScript
+- [React](https://reactjs.org/) - UI library
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
 
-```bash
+- Node.js 16.8+ and npm/yarn/pnpm
+
+### Installation
+
+1. Clone the repository
+
+```sh
+git clone https://github.com/yourusername/canadian-tax-calculator.git
+```
+
+2. Install NPM packages
+
+```sh
+npm install
+# or
+yarn
+# or
+pnpm install
+```
+
+3. Run the development server
+
+```sh
 npm run dev
 # or
 yarn dev
 # or
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000](http://localhost:3000) with your browser
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Usage
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Enter your annual income history by year
+2. Select your province
+3. Click "Calculate Taxes"
+4. View detailed breakdown of your lifetime tax burden
+5. Compare with equivalent US tax and healthcare costs
 
-## Learn More
+## Data Sources
 
-To learn more about Next.js, take a look at the following resources:
+Our tax calculations and healthcare comparisons use data from:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Canada Revenue Agency tax brackets (1917-present)
+- US Internal Revenue Service tax brackets (1917-present)
+- Canadian Medical Association healthcare funding analysis
+- Fraser Institute wait times reports
+- US healthcare cost projections
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Project Structure
 
-## Deploy on Vercel
+```
+canadian-tax-calculator/
+├── app/                  # Next.js app directory
+│   ├── calculator/       # Calculator page
+│   ├── results/          # Results page
+│   └── layout.tsx        # Root layout
+├── components/           # Reusable components
+├── lib/                  # Utility functions and data
+│   └── tax-data/         # Tax bracket data by year
+├── public/               # Static assets
+└── styles/               # Global styles
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contributing
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-unsightly-itchy-garden
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## Support
+
+If you find this tool useful, please consider:
+
+- [Supporting on GitHub Sponsors](https://github.com/sponsors/VerticodeLabs)

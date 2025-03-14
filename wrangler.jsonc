@@ -40,8 +40,7 @@
    * https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
    */
   "vars": {
-    "NODE_ENV": "production",
-    "SUBSCRIPTION_PRICE": "2"
+    "NODE_ENV": "production"
   }
   /**
    * Note: Use secrets to store sensitive data.
