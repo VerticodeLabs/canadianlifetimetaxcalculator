@@ -449,6 +449,68 @@ export default function USCanadaTaxComparison({
               <li>This comparison uses 2025 tax brackets for both countries</li>
             </ul>
           </div>
+          <div className="p-4 rounded bg-yellow-50 mb-4">
+            <h4 className="font-medium mb-2">US State Income Taxes (2025)</h4>
+            <ul className="list-disc pl-5 space-y-2">
+              <li>
+                Range from <strong>0% to 13.3%</strong> depending on the state
+                <a
+                  href="https://www.nerdwallet.com/article/taxes/state-income-tax-rates"
+                  className="text-blue-600 ml-1"
+                >
+                  [Source]
+                </a>
+              </li>
+              <li>
+                <strong>Eight states have no income tax:</strong> Alaska,
+                Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas,
+                and Wyoming
+                <a
+                  href="https://www.nerdwallet.com/article/taxes/state-income-tax-rates"
+                  className="text-blue-600 ml-1"
+                >
+                  [Source]
+                </a>
+              </li>
+              <li>
+                The average state income tax rate in the US is approximately{" "}
+                <strong>4.4%</strong>, while the average provincial/territorial
+                income tax rate in Canada is approximately{" "}
+                <strong>13.2%</strong>, with top provincial and territorial
+                rates ranging up to <strong>25.75%</strong> (Quebec).
+                <a
+                  href="https://www.nerdwallet.com/article/taxes/state-income-tax-rates"
+                  className="text-blue-600 ml-1"
+                >
+                  [US Source]
+                </a>
+                <a
+                  href="https://www.mackenzieinvestments.com/en/services/tax-and-estate-planning/tax-rates"
+                  className="text-blue-600 ml-1"
+                >
+                  [Canada Source]
+                </a>
+              </li>
+              <li>
+                Americans earn slightly more on average before taxes compared to
+                Canadians: Median income in the US was approximately{" "}
+                <strong>$70,784 USD</strong> vs. Canada&apos;s median of
+                approximately <strong>$68,400 CAD</strong> (2021 figures).
+                <a
+                  href="https://www.nerdwallet.com/article/taxes/state-income-tax-rates"
+                  className="text-blue-600 ml-1"
+                >
+                  [US Source]
+                </a>
+                <a
+                  href="https://www150.statcan.gc.ca/n1/daily-quotidien/230713/dq230713d-eng.htm"
+                  className="text-blue-600 ml-1"
+                >
+                  [Canada Source]
+                </a>
+              </li>
+            </ul>
+          </div>
 
           <table className="w-full border-collapse mb-4">
             <thead className="bg-gray-100">
@@ -520,24 +582,6 @@ export default function USCanadaTaxComparison({
       )}
       {activeTab === "other" && (
         <div>
-          <div className="p-4 rounded bg-yellow-50 mb-4">
-            <h4 className="font-medium mb-2">US State Income Taxes (2025)</h4>
-            <ul className="list-disc pl-5 space-y-2">
-              <li>
-                Range from <strong>0% to 13.3%</strong> depending on the state
-              </li>
-              <li>
-                <strong>Eight states have no income tax:</strong> Alaska,
-                Florida, Nevada, New Hampshire, South Dakota, Tennessee, Texas,
-                and Wyoming
-              </li>
-              <li>
-                <strong>Flat tax states:</strong> Range from 2.5% (Arizona) to
-                5.8% (Idaho)
-              </li>
-            </ul>
-          </div>
-
           <div className="p-4 rounded bg-blue-50 mb-4">
             <h4 className="font-medium mb-2">Sales Tax Comparison</h4>
             <ul className="list-disc pl-5 space-y-2">
@@ -559,7 +603,6 @@ export default function USCanadaTaxComparison({
               </li>
             </ul>
           </div>
-
           <div className="p-4 rounded bg-purple-50 mb-4">
             <h4 className="font-medium mb-2">Carbon Tax Impact (Canada)</h4>
             <ul className="list-disc pl-5 space-y-2">
