@@ -29,7 +29,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
     new Date().getFullYear() - 5
   );
   const [bulkEndYear, setBulkEndYear] = useState(new Date().getFullYear());
-  const [bulkIncome, setBulkIncome] = useState(0);
+  const [bulkIncome, setBulkIncome] = useState<string>("");
 
   const [currentIncome, setCurrentIncome] = useState<string>("");
   const [yearError, setYearError] = useState<string>("");
@@ -300,11 +300,13 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
                   <label className="block text-sm font-medium mb-1">
                     Income for All Years
                   </label>
+
                   <input
                     type="number"
+                    placeholder="Annual income"
                     className="w-full px-3 py-2 border rounded"
                     value={bulkIncome}
-                    onChange={(e) => setBulkIncome(Number(e.target.value))}
+                    onChange={(e) => setBulkIncome(e.target.value)}
                   />
                 </div>
                 <div className="flex items-end">
