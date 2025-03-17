@@ -1,7 +1,7 @@
 // components/IncomeForm.tsx
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Button, Modal } from "flowbite-react";
 
@@ -39,6 +39,8 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
   const [loadingData, setLoadingData] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const seedPhraseRef = useRef<HTMLDivElement>(null);
+
   // Load data from localStorage on component mount
   useEffect(() => {
     const storedIncome = localStorage.getItem(STORAGE_INCOME_KEY);
@@ -73,7 +75,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
 
     // Populate the same income for each year in the range
     for (let year = bulkStartYear; year <= bulkEndYear; year++) {
-      updatedIncome[year] = bulkIncome;
+      updatedIncome[year] = parseFloat(bulkIncome);
     }
 
     // Update the state with the new data
@@ -170,10 +172,19 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
         setShowSeedMessage(true);
         saveToLocalStorage(income, data.seed);
 
-        // Hide seed message after 10 seconds
+        setTimeout(() => {
+          if (seedPhraseRef.current) {
+            seedPhraseRef.current.scrollIntoView({
+              behavior: "smooth",
+              // block: "center",
+            });
+          }
+        }, 100); // slight delay ensures element has rendered
+
+        // Hide seed message after 60 seconds
         setTimeout(() => {
           setShowSeedMessage(false);
-        }, 10000);
+        }, 60000);
       }
     } catch (error) {
       console.error("Failed to save data:", error);
@@ -212,7 +223,10 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
   return (
     <div className="bg-white ">
       {showSeedMessage && seed && (
-        <div className="mb-6 bg-green-50 p-4 rounded-lg border border-green-200">
+        <div
+          ref={seedPhraseRef}
+          className="mb-6 bg-green-50 p-4 rounded-lg border border-green-200"
+        >
           <h3 className="font-medium text-green-700 mb-1">Data Saved!</h3>
           <p className="text-sm text-green-600 mb-2">
             Use this unique phrase to access your data on any device:
@@ -268,7 +282,7 @@ export default function IncomeForm({ onSubmit }: IncomeFormProps) {
                 onClick={() => setBulkMode(!bulkMode)}
                 className="ml-auto px-3 mb-2 py-1 text-sm "
               >
-                {bulkMode ? "Switch to Regular Mode" : "Switch to Bulk Mode"}
+                {bulkMode ? "Switch to Regular Mode" : "Switch to Range Mode"}
               </a>
             </div>
 
